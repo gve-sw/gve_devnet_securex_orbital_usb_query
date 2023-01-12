@@ -1,0 +1,258 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01FXZ5AS5EEEA4hWgDA7aGE0rSKFmygtRNc",
+    "name": "USB Orbital Query - GVE DevNet",
+    "title": "USB Orbital Query - GVE DevNet",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 2,
+          "scope": "local",
+          "name": "Orbital Query Wait Time (Minutes)",
+          "type": "datatype.integer",
+          "description": "How long to wait for Orbital query results in minutes. The longer you wait, the more results you'll probably get since endpoints will answer the query as they come online and receive it",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01KEOJFPD69K61svv0Lh0ZpKPMSziil8UhZ",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "This workflow uses Cisco Orbital to query Windows devices for information about connected usb's. The Orbital query run is: windows_connected_usb_monitoring (https://orbital.amp.cisco.com/stock/windows_connected_usb_monitoring)\n\nDocumentation: https://github.com/gve-sw/gve_devnet_securex_orbital_usb_query\n\nTarget Group: Default TargetGroup\n\nTargets: Orbital_For_Access_Token, Orbital_Target\n\nSteps:\n[] Get an API token for Orbital\n[] Execute a catalog query for all windows endpoints using Orbital\n[] Fetch the results of the Orbital query\n[] Output JSON String of Data for Extraction",
+      "display_name": "USB Orbital Query - GVE DevNet",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eqi",
+                "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                "right_operand": "Orbital_For_Access_Token"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_022NJSSGTABP57d2gBJXJ5w01hzv3TfMvcM",
+        "name": "Generate Orbital Token",
+        "title": "Generate Orbital Token",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Generate Orbital Token",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "use_workflow_target_group": true
+          },
+          "workflow_id": "definition_workflow_022NJA053A1C02w1RSpSRPM1hAE4jnsRxHE",
+          "workflow_name": "Generate Orbital Token"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01JGMBHGCAZ920Kn5fGWKR6QEdBs1jLD1dW",
+        "name": "Orbital - Query All Endpoints",
+        "title": "Orbital - Query All Endpoints",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Orbital - Query All Endpoints",
+          "input": {
+            "variable_workflow_01PP74XXDJ6I02lUbtpjEKbDd7y0gpOYS4y": true,
+            "variable_workflow_01PP74XXDJ7U10PBSYZl7md3gg6krQ03p57": "",
+            "variable_workflow_01PP74XXDJ95H0lvwlcEnTPXWXQgvbbTKe6": "windows_connected_usb_monitoring",
+            "variable_workflow_01PP74XXDJAL33MsBJCm3Iptr9I5iu7pLvI": "USB Query",
+            "variable_workflow_01PP74XXDJFAH5HLlFGbENuXfD77aWNTPrF": "$activity.definition_activity_022NJSSGTABP57d2gBJXJ5w01hzv3TfMvcM.output.variable_workflow_022NJFK9II0CR1sh20hLnGhqxm2U6V87JK7$",
+            "variable_workflow_01PP74XXDJGFR2b0QKga75DJjqwiX0K9Nbt": "$workflow.definition_workflow_01FXZ5AS5EEEA4hWgDA7aGE0rSKFmygtRNc.local.variable_workflow_01KEOJFPD69K61svv0Lh0ZpKPMSziil8UhZ$",
+            "variable_workflow_01SW2GRR9R9EH4rSK7JBaDZjavxyl8SX0UR": "0",
+            "variable_workflow_01SW2H938IB3V0XwjYGxkRaW62xKwJH0gwF": ""
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                    "operator": "eqi",
+                    "right_operand": "Orbital_Target"
+                  }
+                ]
+              }
+            }
+          },
+          "workflow_id": "definition_workflow_01PP74XXLH4JK5RznBkKvbBUhiBqVm0A35C",
+          "workflow_name": "Orbital - Query All Endpoints"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01FXZ6C8DR8RP6i7Cps8foIIqyvB29qpLjH",
+        "name": "JSONPath Query",
+        "title": "Check for results",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": true,
+          "display_name": "Check for results",
+          "input_json": "$activity.definition_activity_01JGMBHGCAZ920Kn5fGWKR6QEdBs1jLD1dW.output.variable_workflow_01PP74XXDJBRP6hhz6uRRyhmvLv1NKZQnt9$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.[0].node",
+              "jsonpath_query_name": "resultCheck",
+              "jsonpath_query_type": "string",
+              "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01FXZ6DJYRQ5F1Y0mgp5r6OxiyP2GQG3ZVG",
+        "name": "Condition Block",
+        "title": "Were there results?",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Were there results?",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_01FXZ6DQ56T100XaJrGsO4FK10hN8DTX0jh",
+            "name": "Condition Branch",
+            "title": "No",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_01FXZ6C8DR8RP6i7Cps8foIIqyvB29qpLjH.output.succeeded$",
+                "operator": "eq",
+                "right_operand": false
+              },
+              "continue_on_failure": false,
+              "display_name": "No",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01FXZ9QJPVAIA4SINheyLqOcG0jUU1RBtx7",
+                "name": "Completed",
+                "title": "No results",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "failed-completed",
+                  "continue_on_failure": false,
+                  "display_name": "No results",
+                  "result_message": "There weren't any results from the Orbital query",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_022NL3781ZG337iPs6RHAJrtSVSJvrymDbI",
+        "name": "Execute Python Script",
+        "title": "Format Output Data",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Format Output Data",
+          "script": "import sys\nimport json\n\norbitalQuery = sys.argv[1]\norbitalQuery = json.loads(orbitalQuery)\n\nresult_json = []\n\nfor node in orbitalQuery:\n  result = {\n    \"hostname\": node[\"hostinfo\"][\"hostname\"],\n    \"node_id\": node[\"node\"],\n    \"machine_id\": node[\"hostinfo\"][\"machine\"],\n    \"lastseen\": node[\"lastseen\"] if node[\"lastseen\"] else \"None\",\n    \"connectedDevices\": []\n  }\n\n  # results of everything connected\n  osQueryResult = node[\"osQueryResult\"][0]\n  if osQueryResult[\"values\"]:\n    for i in range(0, len(osQueryResult[\"values\"]), 5):\n      device = {\n        \"path\": osQueryResult[\"values\"][i + 1],\n        \"last_modified\": osQueryResult[\"values\"][i + 4]\n      }\n      \n      result[\"connectedDevices\"].append(device)\n\n  result_json.append(result)\n\njson.dumps(result_json)",
+          "script_arguments": [
+            "$activity.definition_activity_01JGMBHGCAZ920Kn5fGWKR6QEdBs1jLD1dW.output.variable_workflow_01PP74XXDJBRP6hhz6uRRyhmvLv1NKZQnt9$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "result_json",
+              "script_query_name": "Result",
+              "script_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "target_groups": {
+    "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH": {
+      "unique_name": "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH",
+      "name": "Default TargetGroup",
+      "title": "Default TargetGroup",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": true
+        },
+        {
+          "data_target_type": "email.smtp_endpoint",
+          "view_target_type": "email.smtp_endpoint",
+          "include_all_targets": true
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_022NJA053A1C02w1RSpSRPM1hAE4jnsRxHE",
+    "definition_workflow_01PP74XXLH4JK5RznBkKvbBUhiBqVm0A35C"
+  ],
+  "dependent_workflows": [
+    "definition_workflow_022NJA053A1C02w1RSpSRPM1hAE4jnsRxHE",
+    "definition_workflow_01PP74XXLH4JK5RznBkKvbBUhiBqVm0A35C"
+  ]
+}
