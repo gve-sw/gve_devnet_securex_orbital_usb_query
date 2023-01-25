@@ -20,7 +20,7 @@ This SecureX Orchestration (SXO) workflow uses Cisco Orbital to query Windows de
 
 ## Installation/Configuration
 1. Clone this repository with `git clone https://github.com/gve-sw/gve_devnet_securex_orbital_usb_query`
-2. Import the workflow into SXO by following this [guide](https://ciscosecurity.github.io/sxo-05-security-workflows/importing#importing-from-text-or-a-file) and using the included `sxo_usb_query_workflow.json` file.
+2. Import the workflow and atomics into SXO by following this [guide](https://ciscosecurity.github.io/sxo-05-security-workflows/importing#importing-from-text-or-a-file) and using the included JSON files.
 3. Create/modify the following `Account Keys` and `Targets`. **Note**: Names are case-sensitive!
 
 ### Account Keys

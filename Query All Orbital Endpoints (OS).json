@@ -1,0 +1,946 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj",
+    "name": "Query All Orbital Endpoints (OS)",
+    "title": "Query All Orbital Endpoints (OS)",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "orbitalNode",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E8TQZKV035LNeaxx7lHNgTlEMHaa1YK",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Orbital Result",
+          "type": "datatype.string",
+          "description": "The result of the Orbital query. Note: if you set Wait for Completion to false, this field will be empty",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E7NZDJIFK4W8k8S2pwAkMttOGPxItyR",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Orbital SQL Query",
+          "type": "datatype.string",
+          "description": "Raw SQL query to be executed on the endpoint provided. This can either be a single query as a string or a JSON-formatted list of queries. You must provide this or an Orbital Catalog Query ID",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E7SW0A2F86iQxMoT1AwKTbBjG04zBe0",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "OS",
+          "type": "datatype.string",
+          "description": "Valid Options: windows, linux, darwin\n\nhttps://orbital.amp.cisco.com/help/api/query/#nodes",
+          "is_required": true,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234EJJ29J2T34icTxjy4EeDLuq6ndLphl5",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "orbitalQuery",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E8YQ3ZSQY76m7517KQfJF1QaYGLOZNR",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Orbital Catalog Query ID",
+          "type": "datatype.string",
+          "description": "The ID of a catalog query from Orbital. This is found by viewing the query in the Orbital catalog and looking for the ID. For example, for Logged in Users the ID is logged_in_users. You must provide this or an Orbital SQL Query",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E6YJSM4UZ65pVbBKc7rIWkxyZKl894L",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Access Token",
+          "type": "datatype.secure_string",
+          "description": "The bearer token to use to authentiate to the Orbital API",
+          "is_required": true,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E60P6BAJ96rPytPCjZxqJw8tivDRXHk",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.boolean",
+        "properties": {
+          "value": true,
+          "scope": "input",
+          "name": "Wait For Query Completion",
+          "type": "datatype.boolean",
+          "description": "Whether or not to wait for the Orbital query to complete before this action ends. If true, the action will wait until a result is obtained from Orbital or the Query Wait Timeout expires. If false, the action will return the Orbital Job ID for the query without waiting for the query to complete. You can then use the job ID to fetch status and results later",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E9X32DJ502IUsXMa6C4nLZM5C9Gnhhn",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Orbital Job Name",
+          "type": "datatype.string",
+          "description": "A name for the Orbital query job. This will show in the job results and in the job list in Orbital. If a name isn't provided, a default name will be used",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E7HM308W90XHXclsyf3Wk2WSWW5DgqT",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Orbital Catalog Query Arguments",
+          "type": "datatype.string",
+          "description": "JSON-formatted object of key/value arguments for the catalog query. These values must be escaped properly. For example, the \"File Search\" catalog query expects the path of a file to search for:\n{ \"file_path\": [ \"c:\\\\users\\\\administrator\\\\desktop\" ] }",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E5SKO8ZMH4J87UA4vNEQ01pUrEGruQw",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 2,
+          "scope": "input",
+          "name": "Query Expiration Time (Minutes)",
+          "type": "datatype.integer",
+          "description": "How long (in minutes) Orbital will wait to get a response for this query. After the expiration time, Orbital will stop trying to get a response and will not deliver a result. Must be at least 1 minute",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E9AYF75QB1gNSe5Q6BdaYVXXuo9k6Mu",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0",
+          "scope": "input",
+          "name": "Query Interval (Minutes)",
+          "type": "datatype.string",
+          "description": "Interval of how often (in minutes) the query will be executed on the endpoint before the expiration time is reached. An interval of 0 means the query will run once. The minimum interval is 5 minutes",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234JMWNDMHH40khsHsMZNP2vF0MeK0dX2P",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "Orbital Job ID",
+          "type": "datatype.string",
+          "description": "The job ID for this task/query from Orbital. This ID can be used to fetch job status and results later",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_0234E7B95X39Z0EgPVfvrF36bi1kXulhk6a",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Workflows",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "description": "Executes an Orbital catalog query or SQL query on all (os) endpoints. Waiting for the query to complete is optional. You can specify how long Orbital should wait for a result before the job expires.\n\nTarget: HTTP Endpoint for \"orbital.amp.cisco.com\" with a path of \"/v0\"",
+      "display_name": "Query All Orbital Endpoints (OS)",
+      "runtime_user": {
+        "target_default": true
+      },
+      "target": {
+        "target_type": "web-service.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_0234EAOPYRFHW0oKyGPIONQi5VB1zgIMUxe",
+        "name": "Condition Block",
+        "title": "Proper Inputs Provided?",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Proper Inputs Provided?",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_0234EAOQC50VR2QqjlepvqEI82fR280MfrL",
+            "name": "Condition Branch",
+            "title": "Query Expiration is 0",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E9AYF75QB1gNSe5Q6BdaYVXXuo9k6Mu$",
+                "operator": "eq",
+                "right_operand": 0
+              },
+              "continue_on_failure": false,
+              "display_name": "Query Expiration is 0",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_0234EDPM0AFUO5v8cfjwXOWP6wIJSzRrTsu",
+                "name": "Completed",
+                "title": "Failed",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "failed-completed",
+                  "continue_on_failure": false,
+                  "display_name": "Failed",
+                  "result_message": "Query expiration time must be greater than or equal to 1",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_0234EAOQNEPAZ7Wa1RtKNq0KXFhCusMw7w5",
+            "name": "Condition Branch",
+            "title": "No query or catalog Id",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": {
+                  "left_operand": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E6YJSM4UZ65pVbBKc7rIWkxyZKl894L$",
+                  "operator": "eq",
+                  "right_operand": ""
+                },
+                "operator": "and",
+                "right_operand": {
+                  "left_operand": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E7SW0A2F86iQxMoT1AwKTbBjG04zBe0$",
+                  "operator": "eq",
+                  "right_operand": ""
+                }
+              },
+              "continue_on_failure": false,
+              "display_name": "No query or catalog Id",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_0234EF7OH79MV5Kw46UoW0kf2pG4Eh5S0Qo",
+                "name": "Completed",
+                "title": "Failed",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "failed-completed",
+                  "continue_on_failure": false,
+                  "display_name": "Failed",
+                  "result_message": "You must provide either an Orbital Catalog Query ID or Orbital SQL Query",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_0234EFJFXLRBL5yeoYxAkHnWaHDFQsbKogU",
+        "name": "Execute Python Script",
+        "title": "Build the request payload",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Build the request payload",
+          "script": "import time\nimport sys\nimport json\n\nexpiryTime = int(time.time()) + (int(sys.argv[1]) * 60)\njobName = sys.argv[2]\ncatalogQuery = sys.argv[3]\nsqlQuery = sys.argv[4]\ncatalogArgs = sys.argv[5]\ninterval = int(sys.argv[6])\ninstance = sys.argv[7]\nos = sys.argv[8]\n\nif interval > 0:\n\tinterval = (interval * 60)\n\nquery = {\n\t'name': (jobName if len(jobName) > 0 else 'SXo Workflow (' + instance + ')'),\n\t'os': [os],\n\t'expiry': expiryTime,\n\t'interval': interval\n}\n\nif len(catalogQuery) > 0:\n\tquery['stock'] = catalogQuery\n\t\n\tif len(catalogArgs) > 0:\n\t\tquery['stockArgs'] = json.loads(catalogArgs)\nelse:\n\ttry:\n\t\tjsonQuery = json.loads(sqlQuery)\n\t\tquery['osQuery'] = jsonQuery\n\texcept:\n\t\tquery['osQuery'] = [{\n\t\t\t'sql': sqlQuery\n\t\t}]\n\nquery = json.dumps(query)",
+          "script_arguments": [
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E9AYF75QB1gNSe5Q6BdaYVXXuo9k6Mu$",
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E7HM308W90XHXclsyf3Wk2WSWW5DgqT$",
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E6YJSM4UZ65pVbBKc7rIWkxyZKl894L$",
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E7SW0A2F86iQxMoT1AwKTbBjG04zBe0$",
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E5SKO8ZMH4J87UA4vNEQ01pUrEGruQw$",
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234JMWNDMHH40khsHsMZNP2vF0MeK0dX2P$",
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.output.instance_id$",
+            "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234EJJ29J2T34icTxjy4EeDLuq6ndLphl5$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "query",
+              "script_query_name": "query",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "expiryTime",
+              "script_query_name": "expiryTime",
+              "script_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_0234EPATQ8XC45YiO6Ft0CmBGoPJcTJKPgY",
+        "name": "HTTP Request",
+        "title": "Request Query Start",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "accept": "application/json",
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "allow_headers_redirect": false,
+          "body": "$activity.definition_activity_0234EFJFXLRBL5yeoYxAkHnWaHDFQsbKogU.output.script_queries.query$",
+          "content_type": "application/json",
+          "continue_on_error_status_code": true,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E60P6BAJ96rPytPCjZxqJw8tivDRXHk$"
+            }
+          ],
+          "display_name": "Request Query Start",
+          "method": "POST",
+          "relative_url": "query",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "use_workflow_target": true
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_0234F2X64M9VD5a094sxftj52OSJctWnoav",
+        "name": "Condition Block",
+        "title": "Was the request successful?",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Was the request successful?",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_0234F2X6JJBUA5EK9OGQdfQDXHVSl4EshuV",
+            "name": "Condition Branch",
+            "title": "200/Success",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_0234EPATQ8XC45YiO6Ft0CmBGoPJcTJKPgY.output.status_code$",
+                "operator": "eq",
+                "right_operand": 200
+              },
+              "continue_on_failure": false,
+              "display_name": "200/Success",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_0234GG7H7G2MA4SRGYMssok640MSBs54Lt5",
+                "name": "JSONPath Query",
+                "title": "Get job ID",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Get job ID",
+                  "input_json": "$activity.definition_activity_0234EPATQ8XC45YiO6Ft0CmBGoPJcTJKPgY.output.response_body$",
+                  "jsonpath_queries": [
+                    {
+                      "jsonpath_query": "$.ID",
+                      "jsonpath_query_name": "orbitalQueryJobID",
+                      "jsonpath_query_type": "string",
+                      "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_0234ID7QMEUPQ2H2hfwvggHbSF5xUe9n3Xp",
+                "name": "Set Variables",
+                "title": "Set job ID output",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set job ID output",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.output.variable_workflow_0234E7B95X39Z0EgPVfvrF36bi1kXulhk6a$",
+                      "variable_value_new": "$activity.definition_activity_0234GG7H7G2MA4SRGYMssok640MSBs54Lt5.output.jsonpath_queries.orbitalQueryJobID$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_0234IEPNTIHT82wrrnkbZUmlECWD8qkHzex",
+                "name": "Condition Block",
+                "title": "Condition Block",
+                "type": "logic.if_else",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Condition Block",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_0234IEPO4B1V10Ea9w2JhVYHknb0J7Aj5C8",
+                    "name": "Condition Branch",
+                    "title": "No",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E9X32DJ502IUsXMa6C4nLZM5C9Gnhhn$",
+                        "operator": "eq",
+                        "right_operand": false
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "No",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_0234IGD8W9BEN7DM7JhNxxfcWV4cqX4tCTN",
+                        "name": "Completed",
+                        "title": "Succeeded",
+                        "type": "logic.completed",
+                        "base_type": "activity",
+                        "properties": {
+                          "completion_type": "succeeded",
+                          "continue_on_failure": false,
+                          "display_name": "Succeeded",
+                          "result_message": "Orbital query executed successfully (but wait for query completion was false)",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_0234IH6F9QIZW1zo8qwbHd1nVDcmZQRX03p",
+                "name": "While Loop",
+                "title": "Wait for job",
+                "type": "logic.while",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Wait for job",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_0234IH6G95OCY08npkKuagPNjE2NmoAXhde",
+                    "name": "Condition Branch",
+                    "title": "Loop until job expires",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.output.instance_id$",
+                        "operator": "eq",
+                        "right_operand": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.output.instance_id$"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Loop until job expires",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_0234IJ51KW74Y6rXrNly60L9XodCawkFcco",
+                        "name": "Execute Python Script",
+                        "title": "Check if job is expired",
+                        "type": "python3.script",
+                        "base_type": "activity",
+                        "properties": {
+                          "action_timeout": 180,
+                          "continue_on_failure": false,
+                          "display_name": "Check if job is expired",
+                          "script": "import time\nimport sys\n\nexpiryTime = int(sys.argv[1])\ncurrentTime = int(time.time())\n\nexpired = (expiryTime < currentTime)",
+                          "script_arguments": [
+                            "$activity.definition_activity_0234EFJFXLRBL5yeoYxAkHnWaHDFQsbKogU.output.script_queries.expiryTime$"
+                          ],
+                          "script_queries": [
+                            {
+                              "script_query": "expired",
+                              "script_query_name": "queryExpired",
+                              "script_query_type": "boolean"
+                            }
+                          ],
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_0234IL2TUXUN33z0SMoYD5W8APMsW7ldTuB",
+                        "name": "Condition Block",
+                        "title": "Has the job expired?",
+                        "type": "logic.if_else",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Has the job expired?",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "blocks": [
+                          {
+                            "unique_name": "definition_activity_0234IL2U7O4O27IZgICqvtWQn1esre8H7Qs",
+                            "name": "Condition Branch",
+                            "title": "Yes",
+                            "type": "logic.condition_block",
+                            "base_type": "activity",
+                            "properties": {
+                              "condition": {
+                                "left_operand": "$activity.definition_activity_0234IJ51KW74Y6rXrNly60L9XodCawkFcco.output.script_queries.queryExpired$",
+                                "operator": "eq",
+                                "right_operand": true
+                              },
+                              "continue_on_failure": false,
+                              "display_name": "Yes",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "actions": [
+                              {
+                                "unique_name": "definition_activity_0234INC9MZDLN6ZVwAVS0cXKR5t1lJMiEM9",
+                                "name": "HTTP Request",
+                                "title": "Check job status",
+                                "type": "web-service.http_request",
+                                "base_type": "activity",
+                                "properties": {
+                                  "action_timeout": 180,
+                                  "allow_auto_redirect": true,
+                                  "allow_headers_redirect": false,
+                                  "continue_on_error_status_code": false,
+                                  "continue_on_failure": false,
+                                  "custom_headers": [
+                                    {
+                                      "name": "Authorization",
+                                      "value": "Bearer $workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E60P6BAJ96rPytPCjZxqJw8tivDRXHk$"
+                                    }
+                                  ],
+                                  "display_name": "Check job status",
+                                  "method": "GET",
+                                  "relative_url": "jobs/$activity.definition_activity_0234GG7H7G2MA4SRGYMssok640MSBs54Lt5.output.jsonpath_queries.orbitalQueryJobID$",
+                                  "runtime_user": {
+                                    "target_default": true
+                                  },
+                                  "skip_execution": false,
+                                  "target": {
+                                    "use_workflow_target": true
+                                  }
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_0234IRBEYC6YA3HUf8lBOGwLFv60YXPRdpT",
+                                "name": "Condition Block",
+                                "title": "Was the request successful?",
+                                "type": "logic.if_else",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Was the request successful?",
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity",
+                                "blocks": [
+                                  {
+                                    "unique_name": "definition_activity_0234IRBF8CJSX75W7JdTNmFZ2LUYHKPqPkY",
+                                    "name": "Condition Branch",
+                                    "title": "200/Success",
+                                    "type": "logic.condition_block",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "condition": {
+                                        "left_operand": "$activity.definition_activity_0234INC9MZDLN6ZVwAVS0cXKR5t1lJMiEM9.output.status_code$",
+                                        "operator": "eq",
+                                        "right_operand": 200
+                                      },
+                                      "continue_on_failure": false,
+                                      "display_name": "200/Success",
+                                      "skip_execution": false
+                                    },
+                                    "object_type": "definition_activity",
+                                    "actions": [
+                                      {
+                                        "unique_name": "definition_activity_0234IT9NGZCBK76rM1iH3VNnW5AAz1jRt8d",
+                                        "name": "JSONPath Query",
+                                        "title": "Extract done count",
+                                        "type": "corejava.jsonpathquery",
+                                        "base_type": "activity",
+                                        "properties": {
+                                          "action_timeout": 180,
+                                          "continue_on_failure": false,
+                                          "display_name": "Extract done count",
+                                          "input_json": "$activity.definition_activity_0234INC9MZDLN6ZVwAVS0cXKR5t1lJMiEM9.output.response_body$",
+                                          "jsonpath_queries": [
+                                            {
+                                              "jsonpath_query": "$.done_count",
+                                              "jsonpath_query_name": "doneCount",
+                                              "jsonpath_query_type": "integer"
+                                            }
+                                          ],
+                                          "skip_execution": false
+                                        },
+                                        "object_type": "definition_activity"
+                                      },
+                                      {
+                                        "unique_name": "definition_activity_0234IU2J0PTT37I1RpFpFFBraZp0SmlyyaJ",
+                                        "name": "Condition Block",
+                                        "title": "Is the done count greater than 0?",
+                                        "type": "logic.if_else",
+                                        "base_type": "activity",
+                                        "properties": {
+                                          "continue_on_failure": false,
+                                          "display_name": "Is the done count greater than 0?",
+                                          "skip_execution": false
+                                        },
+                                        "object_type": "definition_activity",
+                                        "blocks": [
+                                          {
+                                            "unique_name": "definition_activity_0234IU2JBP0IH0HdywtlufBLx7aDzitSPzF",
+                                            "name": "Condition Branch",
+                                            "title": "Yes",
+                                            "type": "logic.condition_block",
+                                            "base_type": "activity",
+                                            "properties": {
+                                              "condition": {
+                                                "left_operand": "$activity.definition_activity_0234IT9NGZCBK76rM1iH3VNnW5AAz1jRt8d.output.jsonpath_queries.doneCount$",
+                                                "operator": "gt",
+                                                "right_operand": 0
+                                              },
+                                              "continue_on_failure": false,
+                                              "display_name": "Yes",
+                                              "skip_execution": false
+                                            },
+                                            "object_type": "definition_activity",
+                                            "actions": [
+                                              {
+                                                "unique_name": "definition_activity_0234IUUE8XXN87lf9mGgLsEPPUiPrcWYwVY",
+                                                "name": "HTTP Request",
+                                                "title": "Get job results",
+                                                "type": "web-service.http_request",
+                                                "base_type": "activity",
+                                                "properties": {
+                                                  "action_timeout": 180,
+                                                  "allow_auto_redirect": true,
+                                                  "allow_headers_redirect": false,
+                                                  "continue_on_error_status_code": false,
+                                                  "continue_on_failure": false,
+                                                  "custom_headers": [
+                                                    {
+                                                      "name": "Authorization",
+                                                      "value": "Bearer $workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.input.variable_workflow_0234E60P6BAJ96rPytPCjZxqJw8tivDRXHk$"
+                                                    }
+                                                  ],
+                                                  "display_name": "Get job results",
+                                                  "method": "GET",
+                                                  "relative_url": "jobs/$activity.definition_activity_0234GG7H7G2MA4SRGYMssok640MSBs54Lt5.output.jsonpath_queries.orbitalQueryJobID$/results",
+                                                  "runtime_user": {
+                                                    "target_default": true
+                                                  },
+                                                  "skip_execution": false,
+                                                  "target": {
+                                                    "use_workflow_target": true
+                                                  }
+                                                },
+                                                "object_type": "definition_activity"
+                                              },
+                                              {
+                                                "unique_name": "definition_activity_0234IW8G1P7VH0Q6tNM7pzV7xkaFvGaqKe8",
+                                                "name": "JSONPath Query",
+                                                "title": "Extract result values",
+                                                "type": "corejava.jsonpathquery",
+                                                "base_type": "activity",
+                                                "properties": {
+                                                  "action_timeout": 180,
+                                                  "continue_on_failure": false,
+                                                  "display_name": "Extract result values",
+                                                  "input_json": "$activity.definition_activity_0234IUUE8XXN87lf9mGgLsEPPUiPrcWYwVY.output.response_body$",
+                                                  "jsonpath_queries": [
+                                                    {
+                                                      "jsonpath_query": "$.results",
+                                                      "jsonpath_query_name": "orbitalQueryResult",
+                                                      "jsonpath_query_type": "string"
+                                                    }
+                                                  ],
+                                                  "skip_execution": false
+                                                },
+                                                "object_type": "definition_activity"
+                                              },
+                                              {
+                                                "unique_name": "definition_activity_0234IXA6B95X24t2filjxeV1XuMkn8UkKgs",
+                                                "name": "Set Variables",
+                                                "title": "Set output variables",
+                                                "type": "core.set_multiple_variables",
+                                                "base_type": "activity",
+                                                "properties": {
+                                                  "continue_on_failure": false,
+                                                  "display_name": "Set output variables",
+                                                  "skip_execution": false,
+                                                  "variables_to_update": [
+                                                    {
+                                                      "variable_to_update": "$workflow.definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj.output.variable_workflow_0234E7NZDJIFK4W8k8S2pwAkMttOGPxItyR$",
+                                                      "variable_value_new": "$activity.definition_activity_0234IW8G1P7VH0Q6tNM7pzV7xkaFvGaqKe8.output.jsonpath_queries.orbitalQueryResult$"
+                                                    }
+                                                  ]
+                                                },
+                                                "object_type": "definition_activity"
+                                              },
+                                              {
+                                                "unique_name": "definition_activity_0234IY20QV1WM4OPe8QjtBDL4hJJW5My2zV",
+                                                "name": "Break",
+                                                "title": "Break",
+                                                "type": "logic.break",
+                                                "base_type": "activity",
+                                                "properties": {
+                                                  "continue_on_failure": false,
+                                                  "display_name": "Break",
+                                                  "skip_execution": false
+                                                },
+                                                "object_type": "definition_activity"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "unique_name": "definition_activity_0234IU2JOOUJO6U6uRXdIsA4zs0eKsXHckn",
+                                            "name": "Condition Branch",
+                                            "title": "No",
+                                            "type": "logic.condition_block",
+                                            "base_type": "activity",
+                                            "properties": {
+                                              "condition": {
+                                                "left_operand": "$activity.definition_activity_0234IT9NGZCBK76rM1iH3VNnW5AAz1jRt8d.output.jsonpath_queries.doneCount$",
+                                                "operator": "eq",
+                                                "right_operand": 0
+                                              },
+                                              "continue_on_failure": false,
+                                              "display_name": "No",
+                                              "skip_execution": false
+                                            },
+                                            "object_type": "definition_activity",
+                                            "actions": [
+                                              {
+                                                "unique_name": "definition_activity_0234IYZRTLJAP410GXIgHWLcBIy9iWoab4U",
+                                                "name": "Completed",
+                                                "title": "Failed",
+                                                "type": "logic.completed",
+                                                "base_type": "activity",
+                                                "properties": {
+                                                  "completion_type": "failed-completed",
+                                                  "continue_on_failure": false,
+                                                  "display_name": "Failed",
+                                                  "result_message": "No results for job $activity.definition_activity_0234GG7H7G2MA4SRGYMssok640MSBs54Lt5.output.jsonpath_queries.orbitalQueryJobID$",
+                                                  "skip_execution": false
+                                                },
+                                                "object_type": "definition_activity"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "unique_name": "definition_activity_0234IRBFKS52X6nBbr9Jb4b50YQdx6p5H5U",
+                                    "name": "Condition Branch",
+                                    "title": "Anything else",
+                                    "type": "logic.condition_block",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "condition": {
+                                        "left_operand": "$activity.definition_activity_0234INC9MZDLN6ZVwAVS0cXKR5t1lJMiEM9.output.status_code$",
+                                        "operator": "ne",
+                                        "right_operand": 200
+                                      },
+                                      "continue_on_failure": false,
+                                      "display_name": "Anything else",
+                                      "skip_execution": false
+                                    },
+                                    "object_type": "definition_activity",
+                                    "actions": [
+                                      {
+                                        "unique_name": "definition_activity_0234J2T94GUNB0FgiSrj0Zpllh4ayMAS8t5",
+                                        "name": "Completed",
+                                        "title": "Failed",
+                                        "type": "logic.completed",
+                                        "base_type": "activity",
+                                        "properties": {
+                                          "completion_type": "failed-completed",
+                                          "continue_on_failure": false,
+                                          "display_name": "Failed",
+                                          "result_message": "Failed to retrieve status for job $activity.definition_activity_0234GG7H7G2MA4SRGYMssok640MSBs54Lt5.output.jsonpath_queries.orbitalQueryJobID$ from Orbital\n\nStatus code: $activity.definition_activity_0234INC9MZDLN6ZVwAVS0cXKR5t1lJMiEM9.output.status_code$\nResponse body: $activity.definition_activity_0234INC9MZDLN6ZVwAVS0cXKR5t1lJMiEM9.output.response_body$",
+                                          "skip_execution": false
+                                        },
+                                        "object_type": "definition_activity"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "unique_name": "definition_activity_0234IL2UJC7IZ1n3kPkyEL7VGmzvAfgRvXv",
+                            "name": "Condition Branch",
+                            "title": "No",
+                            "type": "logic.condition_block",
+                            "base_type": "activity",
+                            "properties": {
+                              "condition": {
+                                "left_operand": "$activity.definition_activity_0234IJ51KW74Y6rXrNly60L9XodCawkFcco.output.script_queries.queryExpired$",
+                                "operator": "eq",
+                                "right_operand": false
+                              },
+                              "continue_on_failure": false,
+                              "display_name": "No",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "actions": [
+                              {
+                                "unique_name": "definition_activity_0234J0EXUVY1L0bvWJBSjYrsSlVGgO6AW2d",
+                                "name": "Sleep",
+                                "title": "Sleep",
+                                "type": "core.sleep",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Sleep",
+                                  "skip_execution": false,
+                                  "sleep_interval": 10
+                                },
+                                "object_type": "definition_activity"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_0234F2X6U9OHG0BlmaOLFw1aJepRA41c4Rh",
+            "name": "Condition Branch",
+            "title": "Anything else",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_0234EPATQ8XC45YiO6Ft0CmBGoPJcTJKPgY.output.status_code$",
+                "operator": "ne",
+                "right_operand": 200
+              },
+              "continue_on_failure": false,
+              "display_name": "Anything else",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_0234F423U6CT86kXNJ0pZQgDwQCrWb2tGbM",
+                "name": "Completed",
+                "title": "Failed",
+                "type": "logic.completed",
+                "base_type": "activity",
+                "properties": {
+                  "completion_type": "failed-completed",
+                  "continue_on_failure": false,
+                  "display_name": "Failed",
+                  "result_message": "Unable to execute Orbital query\n\nStatus code: $activity.Request query start.output.Status code$\nResponse body: $activity.Request query start.output.Body$",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  }
+}

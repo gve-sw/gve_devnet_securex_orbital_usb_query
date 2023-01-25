@@ -1,6 +1,6 @@
 {
   "workflow": {
-    "unique_name": "definition_workflow_01FXZ5AS5EEEA4hWgDA7aGE0rSKFmygtRNc",
+    "unique_name": "definition_workflow_0234GRLTWV1BM05W0ECxY9TsYtVFSnnmjui",
     "name": "USB Orbital Query - GVE DevNet",
     "title": "USB Orbital Query - GVE DevNet",
     "type": "generic.workflow",
@@ -17,7 +17,7 @@
           "is_required": false,
           "is_invisible": false
         },
-        "unique_name": "variable_workflow_01KEOJFPD69K61svv0Lh0ZpKPMSziil8UhZ",
+        "unique_name": "variable_workflow_0234GRLU4TZKW5MMJkmFySwMX70SMz72iL4",
         "object_type": "variable_workflow"
       }
     ],
@@ -57,7 +57,7 @@
     "object_type": "definition_workflow",
     "actions": [
       {
-        "unique_name": "definition_activity_022NJSSGTABP57d2gBJXJ5w01hzv3TfMvcM",
+        "unique_name": "definition_activity_0234GRLYCVBC06W1LN7G5P2oeVurMiW7lvn",
         "name": "Generate Orbital Token",
         "title": "Generate Orbital Token",
         "type": "workflow.atomic_workflow",
@@ -73,28 +73,29 @@
             "use_workflow_target_group": true
           },
           "workflow_id": "definition_workflow_022NJA053A1C02w1RSpSRPM1hAE4jnsRxHE",
-          "workflow_name": "Generate Orbital Token"
+          "workflow_name": "Generate Orbital Token "
         },
         "object_type": "definition_activity"
       },
       {
-        "unique_name": "definition_activity_01JGMBHGCAZ920Kn5fGWKR6QEdBs1jLD1dW",
-        "name": "Orbital - Query All Endpoints",
-        "title": "Orbital - Query All Endpoints",
+        "unique_name": "definition_activity_0234JA2EJE5VR2BAh3OqTGwEvXEeh4PT7m3",
+        "name": "Query All Orbital Endpoints (OS) ",
+        "title": "Query All Orbital Endpoints (OS) ",
         "type": "workflow.atomic_workflow",
         "base_type": "subworkflow",
         "properties": {
           "continue_on_failure": false,
-          "display_name": "Orbital - Query All Endpoints",
+          "display_name": "Query All Orbital Endpoints (OS) ",
           "input": {
-            "variable_workflow_01PP74XXDJ6I02lUbtpjEKbDd7y0gpOYS4y": true,
-            "variable_workflow_01PP74XXDJ7U10PBSYZl7md3gg6krQ03p57": "",
-            "variable_workflow_01PP74XXDJ95H0lvwlcEnTPXWXQgvbbTKe6": "windows_connected_usb_monitoring",
-            "variable_workflow_01PP74XXDJAL33MsBJCm3Iptr9I5iu7pLvI": "USB Query",
-            "variable_workflow_01PP74XXDJFAH5HLlFGbENuXfD77aWNTPrF": "$activity.definition_activity_022NJSSGTABP57d2gBJXJ5w01hzv3TfMvcM.output.variable_workflow_022NJFK9II0CR1sh20hLnGhqxm2U6V87JK7$",
-            "variable_workflow_01PP74XXDJGFR2b0QKga75DJjqwiX0K9Nbt": "$workflow.definition_workflow_01FXZ5AS5EEEA4hWgDA7aGE0rSKFmygtRNc.local.variable_workflow_01KEOJFPD69K61svv0Lh0ZpKPMSziil8UhZ$",
-            "variable_workflow_01SW2GRR9R9EH4rSK7JBaDZjavxyl8SX0UR": "0",
-            "variable_workflow_01SW2H938IB3V0XwjYGxkRaW62xKwJH0gwF": ""
+            "variable_workflow_0234E5SKO8ZMH4J87UA4vNEQ01pUrEGruQw": "",
+            "variable_workflow_0234E60P6BAJ96rPytPCjZxqJw8tivDRXHk": "$activity.definition_activity_0234GRLYCVBC06W1LN7G5P2oeVurMiW7lvn.output.variable_workflow_022NJFK9II0CR1sh20hLnGhqxm2U6V87JK7$",
+            "variable_workflow_0234E6YJSM4UZ65pVbBKc7rIWkxyZKl894L": "windows_connected_usb_monitoring",
+            "variable_workflow_0234E7HM308W90XHXclsyf3Wk2WSWW5DgqT": "USB Query - SecureX",
+            "variable_workflow_0234E7SW0A2F86iQxMoT1AwKTbBjG04zBe0": "",
+            "variable_workflow_0234E9AYF75QB1gNSe5Q6BdaYVXXuo9k6Mu": "$workflow.definition_workflow_0234GRLTWV1BM05W0ECxY9TsYtVFSnnmjui.local.variable_workflow_0234GRLU4TZKW5MMJkmFySwMX70SMz72iL4$",
+            "variable_workflow_0234E9X32DJ502IUsXMa6C4nLZM5C9Gnhhn": true,
+            "variable_workflow_0234EJJ29J2T34icTxjy4EeDLuq6ndLphl5": "windows",
+            "variable_workflow_0234JMWNDMHH40khsHsMZNP2vF0MeK0dX2P": "0"
           },
           "runtime_user": {
             "target_default": true
@@ -109,20 +110,20 @@
                 "conditions": [
                   {
                     "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                    "operator": "eqi",
+                    "operator": "eq",
                     "right_operand": "Orbital_Target"
                   }
                 ]
               }
             }
           },
-          "workflow_id": "definition_workflow_01PP74XXLH4JK5RznBkKvbBUhiBqVm0A35C",
-          "workflow_name": "Orbital - Query All Endpoints"
+          "workflow_id": "definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj",
+          "workflow_name": "Query All Orbital Endpoints (OS) "
         },
         "object_type": "definition_activity"
       },
       {
-        "unique_name": "definition_activity_01FXZ6C8DR8RP6i7Cps8foIIqyvB29qpLjH",
+        "unique_name": "definition_activity_0234GRM24C5G97TWs1IFmHuho2lvlcqsHDo",
         "name": "JSONPath Query",
         "title": "Check for results",
         "type": "corejava.jsonpathquery",
@@ -131,7 +132,7 @@
           "action_timeout": 180,
           "continue_on_failure": true,
           "display_name": "Check for results",
-          "input_json": "$activity.definition_activity_01JGMBHGCAZ920Kn5fGWKR6QEdBs1jLD1dW.output.variable_workflow_01PP74XXDJBRP6hhz6uRRyhmvLv1NKZQnt9$",
+          "input_json": "$activity.definition_activity_0234JA2EJE5VR2BAh3OqTGwEvXEeh4PT7m3.output.variable_workflow_0234E7NZDJIFK4W8k8S2pwAkMttOGPxItyR$",
           "jsonpath_queries": [
             {
               "jsonpath_query": "$.[0].node",
@@ -145,7 +146,7 @@
         "object_type": "definition_activity"
       },
       {
-        "unique_name": "definition_activity_01FXZ6DJYRQ5F1Y0mgp5r6OxiyP2GQG3ZVG",
+        "unique_name": "definition_activity_0234GRM3CFEMO4XVBgm9dC9nVkNDgBwWoZu",
         "name": "Condition Block",
         "title": "Were there results?",
         "type": "logic.if_else",
@@ -158,14 +159,14 @@
         "object_type": "definition_activity",
         "blocks": [
           {
-            "unique_name": "definition_activity_01FXZ6DQ56T100XaJrGsO4FK10hN8DTX0jh",
+            "unique_name": "definition_activity_0234GRM4D26XN2qg8t3F4gOTztlr0cdIg0Q",
             "name": "Condition Branch",
             "title": "No",
             "type": "logic.condition_block",
             "base_type": "activity",
             "properties": {
               "condition": {
-                "left_operand": "$activity.definition_activity_01FXZ6C8DR8RP6i7Cps8foIIqyvB29qpLjH.output.succeeded$",
+                "left_operand": "$activity.definition_activity_0234GRM24C5G97TWs1IFmHuho2lvlcqsHDo.output.succeeded$",
                 "operator": "eq",
                 "right_operand": false
               },
@@ -176,7 +177,7 @@
             "object_type": "definition_activity",
             "actions": [
               {
-                "unique_name": "definition_activity_01FXZ9QJPVAIA4SINheyLqOcG0jUU1RBtx7",
+                "unique_name": "definition_activity_0234GRM5HQRC54VllisW1e4FjQwa4NrkcE9",
                 "name": "Completed",
                 "title": "No results",
                 "type": "logic.completed",
@@ -195,7 +196,7 @@
         ]
       },
       {
-        "unique_name": "definition_activity_022NL3781ZG337iPs6RHAJrtSVSJvrymDbI",
+        "unique_name": "definition_activity_0234GRM6EYNJ8531qBkUUEu4MdeNmK4ioMv",
         "name": "Execute Python Script",
         "title": "Format Output Data",
         "type": "python3.script",
@@ -204,9 +205,9 @@
           "action_timeout": 180,
           "continue_on_failure": false,
           "display_name": "Format Output Data",
-          "script": "import sys\nimport json\n\norbitalQuery = sys.argv[1]\norbitalQuery = json.loads(orbitalQuery)\n\nresult_json = []\n\nfor node in orbitalQuery:\n  result = {\n    \"hostname\": node[\"hostinfo\"][\"hostname\"],\n    \"node_id\": node[\"node\"],\n    \"machine_id\": node[\"hostinfo\"][\"machine\"],\n    \"lastseen\": node[\"lastseen\"] if node[\"lastseen\"] else \"None\",\n    \"connectedDevices\": []\n  }\n\n  # results of everything connected\n  osQueryResult = node[\"osQueryResult\"][0]\n  if osQueryResult[\"values\"]:\n    for i in range(0, len(osQueryResult[\"values\"]), 5):\n      device = {\n        \"path\": osQueryResult[\"values\"][i + 1],\n        \"last_modified\": osQueryResult[\"values\"][i + 4]\n      }\n      \n      result[\"connectedDevices\"].append(device)\n\n  result_json.append(result)\n\njson.dumps(result_json)",
+          "script": "import sys\nimport json\n\norbitalQuery = json.loads(sys.argv[1])\n\nresult_json = {\"data\": []}\n\nfor node in orbitalQuery:\n  result = {\n    \"hostname\": node[\"hostinfo\"][\"hostname\"],\n    \"node_id\": node[\"node\"],\n    \"machine_id\": node[\"hostinfo\"][\"machine\"],\n    \"lastseen\": node[\"lastseen\"] if node[\"lastseen\"] else \"None\",\n    \"connectedDevices\": []\n  }\n\n  # results of everything connected\n  osQueryResult = node[\"osQueryResult\"][0]\n  if osQueryResult[\"values\"]:\n    for i in range(0, len(osQueryResult[\"values\"]), 5):\n      device = {\n        \"path\": osQueryResult[\"values\"][i + 1],\n        \"last_modified\": osQueryResult[\"values\"][i + 4]\n      }\n      \n      result[\"connectedDevices\"].append(device)\n\n  result_json[\"data\"].append(result)\n\nresult_json = json.dumps(result_json)",
           "script_arguments": [
-            "$activity.definition_activity_01JGMBHGCAZ920Kn5fGWKR6QEdBs1jLD1dW.output.variable_workflow_01PP74XXDJBRP6hhz6uRRyhmvLv1NKZQnt9$"
+            "$activity.definition_activity_0234JA2EJE5VR2BAh3OqTGwEvXEeh4PT7m3.output.variable_workflow_0234E7NZDJIFK4W8k8S2pwAkMttOGPxItyR$"
           ],
           "script_queries": [
             {
@@ -216,6 +217,46 @@
             }
           ],
           "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_0234KP50ALWGJ3X7RGe0eXfp3JWPrmMMsO8",
+        "name": "Read Table from JSON",
+        "title": "Read Table from JSON",
+        "type": "corejava.read_table_from_json",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Read Table from JSON",
+          "input_json": "$activity.definition_activity_0234GRM6EYNJ8531qBkUUEu4MdeNmK4ioMv.output.script_queries.Result$",
+          "jsonpath_query": "$.data",
+          "persist_output": false,
+          "populate_columns": false,
+          "skip_execution": false,
+          "table_columns": [
+            {
+              "column_name": "hostname",
+              "column_type": "string"
+            },
+            {
+              "column_name": "node_id",
+              "column_type": "string"
+            },
+            {
+              "column_name": "machine_id",
+              "column_type": "string"
+            },
+            {
+              "column_name": "lastseen",
+              "column_type": "string"
+            },
+            {
+              "column_name": "connectedDevices",
+              "column_type": "string"
+            }
+          ]
         },
         "object_type": "definition_activity"
       }
@@ -249,10 +290,10 @@
   },
   "atomic_workflows": [
     "definition_workflow_022NJA053A1C02w1RSpSRPM1hAE4jnsRxHE",
-    "definition_workflow_01PP74XXLH4JK5RznBkKvbBUhiBqVm0A35C"
+    "definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj"
   ],
   "dependent_workflows": [
     "definition_workflow_022NJA053A1C02w1RSpSRPM1hAE4jnsRxHE",
-    "definition_workflow_01PP74XXLH4JK5RznBkKvbBUhiBqVm0A35C"
+    "definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj"
   ]
 }
