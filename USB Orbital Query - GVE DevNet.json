@@ -9,7 +9,7 @@
       {
         "schema_id": "datatype.integer",
         "properties": {
-          "value": 2,
+          "value": 1,
           "scope": "local",
           "name": "Orbital Query Wait Time (Minutes)",
           "type": "datatype.integer",
@@ -73,7 +73,7 @@
             "use_workflow_target_group": true
           },
           "workflow_id": "definition_workflow_022NJA053A1C02w1RSpSRPM1hAE4jnsRxHE",
-          "workflow_name": "Generate Orbital Token "
+          "workflow_name": "Generate Orbital Token"
         },
         "object_type": "definition_activity"
       },
@@ -118,7 +118,7 @@
             }
           },
           "workflow_id": "definition_workflow_0234E3UPXIA2O4EHS9jYGMpRO0MvQjiMNUj",
-          "workflow_name": "Query All Orbital Endpoints (OS) "
+          "workflow_name": "Query All Orbital Endpoints (OS)"
         },
         "object_type": "definition_activity"
       },
@@ -205,7 +205,7 @@
           "action_timeout": 180,
           "continue_on_failure": false,
           "display_name": "Format Output Data",
-          "script": "import sys\nimport json\n\norbitalQuery = json.loads(sys.argv[1])\n\nresult_json = {\"data\": []}\n\nfor node in orbitalQuery:\n  result = {\n    \"hostname\": node[\"hostinfo\"][\"hostname\"],\n    \"node_id\": node[\"node\"],\n    \"machine_id\": node[\"hostinfo\"][\"machine\"],\n    \"lastseen\": node[\"lastseen\"] if node[\"lastseen\"] else \"None\",\n    \"connectedDevices\": []\n  }\n\n  # results of everything connected\n  osQueryResult = node[\"osQueryResult\"][0]\n  if osQueryResult[\"values\"]:\n    for i in range(0, len(osQueryResult[\"values\"]), 5):\n      device = {\n        \"path\": osQueryResult[\"values\"][i + 1],\n        \"last_modified\": osQueryResult[\"values\"][i + 4]\n      }\n      \n      result[\"connectedDevices\"].append(device)\n\n  result_json[\"data\"].append(result)\n\nresult_json = json.dumps(result_json)",
+          "script": "import sys\nimport json\n\norbitalQuery = json.loads(sys.argv[1])\n\nresult_json = {\"data\": []}\n\nfor node in orbitalQuery:\n  result = {\n    \"hostname\": node[\"hostinfo\"][\"hostname\"],\n    \"node_id\": node[\"node\"],\n    \"machine_id\": node[\"hostinfo\"][\"machine\"],\n    \"lastseen\": node[\"lastseen\"] if node[\"lastseen\"] else \"None\",\n    \"connectedDevices\": []\n  }\n\n  # results of everything connected\n  if \"osQueryResult\" in node and len(node[\"osQueryResult\"]) > 0:\n    osQueryResult = node[\"osQueryResult\"][0]\n    if osQueryResult[\"values\"]:\n      for i in range(0, len(osQueryResult[\"values\"]), 5):\n        device = {\n          \"path\": osQueryResult[\"values\"][i + 1],\n          \"last_modified\": osQueryResult[\"values\"][i + 4]\n        }\n      \n        result[\"connectedDevices\"].append(device)\n\n  result_json[\"data\"].append(result)\n\nresult_json = json.dumps(result_json)",
           "script_arguments": [
             "$activity.definition_activity_0234JA2EJE5VR2BAh3OqTGwEvXEeh4PT7m3.output.variable_workflow_0234E7NZDJIFK4W8k8S2pwAkMttOGPxItyR$"
           ],
